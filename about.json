@@ -2,8 +2,8 @@
   "name": "Topic List Tooltips",
   "component": true,
   "authors": "Discourse",
-  "about_url": "TODO: Put your theme's public repo or Meta topic URL here",
-  "license_url": "TODO: Put your theme's LICENSE URL here",
+  "about_url": "https://github.com/discourse/discourse-topic-list-tooltips/blob/main/README.md",
+  "license_url": "https://github.com/discourse/discourse-topic-list-tooltips/blob/main/LICENSE",
   "theme_version": "0.0.1",
   "modifiers": {
     "serialize_topic_excerpts": true
