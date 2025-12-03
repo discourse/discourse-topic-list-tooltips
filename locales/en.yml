@@ -1,0 +1,5 @@
+en:
+  theme_metadata:
+    description: Show topic excerpts or gists on hover
+    settings:
+      example_setting: A description of a setting.
