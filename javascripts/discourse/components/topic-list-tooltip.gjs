@@ -22,7 +22,7 @@ export default class TopicListTooltip extends Component {
   get gistsService() {
     try {
       return getOwner(this).lookup("service:gists");
-    } catch (e) {
+    } catch () {
       return null;
     }
   }

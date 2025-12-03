@@ -17,7 +17,7 @@ RSpec.describe "Topic List Tooltips", type: :system do
     topic
   end
   
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
 
   before do
     theme.theme_modifier_set.serialize_topic_excerpts = true
