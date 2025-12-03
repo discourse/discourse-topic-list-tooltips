@@ -1,2 +1,6 @@
-example_setting:
-  default: true
+tooltip_content:
+  type: enum
+  default: first_post_excerpt
+  choices:
+    - first_post_excerpt
+    - ai_topic_gist

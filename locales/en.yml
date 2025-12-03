@@ -1,5 +1,5 @@
 en:
   theme_metadata:
-    description: Show topic excerpts or gists on hover
+    description: Show a tooltip containing excerpts or AI gists on topic list title hover
     settings:
-      example_setting: A description of a setting.
+      tooltip_content: "Choose what content to display in topic tooltips. <p>To use AI topic gists, you must have the <a href='/admin/plugins/discourse-ai/settings?filter=ai_summary_gists_enabled'>Discourse AI plugin enabled with gists configured</a>. Gists will only appear as tooltips when they are not already displayed inline in the topic list.</p>"
