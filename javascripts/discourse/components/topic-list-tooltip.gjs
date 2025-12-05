@@ -1,13 +1,17 @@
 import Component from "@glimmer/component";
 import { getOwner } from "@ember/owner";
+import { cancel } from "@ember/runloop";
 import { htmlSafe } from "@ember/template";
 import replaceEmoji from "discourse/helpers/replace-emoji";
+import discourseLater from "discourse/lib/later";
 import DTooltip from "float-kit/components/d-tooltip";
 
 const triggers = {
   mobile: ["hover"],
   desktop: ["hover"],
 };
+
+const MILLISECONDS_PER_SECOND = 1000;
 
 let TABLE_AI_LAYOUT = "table-ai";
 import("discourse/plugins/discourse-ai/discourse/services/gists")
@@ -19,6 +23,23 @@ import("discourse/plugins/discourse-ai/discourse/services/gists")
   });
 
 export default class TopicListTooltip extends Component {
+  hoverTimeout = null;
+
+  beforeTrigger = async () => {
+    this.cancelPending();
+
+    return new Promise((resolve) => {
+      this.hoverTimeout = discourseLater(() => {
+        this.hoverTimeout = null;
+        resolve();
+      }, settings.hover_delay_seconds * MILLISECONDS_PER_SECOND);
+    });
+  };
+
+  onClose = () => {
+    this.cancelPending();
+  };
+
   get gistsService() {
     try {
       return getOwner(this).lookup("service:gists");
@@ -65,12 +86,21 @@ export default class TopicListTooltip extends Component {
     return null;
   }
 
+  cancelPending() {
+    if (this.hoverTimeout) {
+      cancel(this.hoverTimeout);
+      this.hoverTimeout = null;
+    }
+  }
+
   <template>
     {{#if this.shouldShowTooltip}}
       <DTooltip
         @triggers={{triggers}}
         @untriggers={{triggers}}
         @placement="bottom-start"
+        @beforeTrigger={{this.beforeTrigger}}
+        @onClose={{this.onClose}}
       >
         <:trigger>
           {{yield}}
