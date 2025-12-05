@@ -23,7 +23,7 @@ import("discourse/plugins/discourse-ai/discourse/services/gists")
 export default class TopicListTooltip extends Component {
   hoverTimeout = null;
 
-  beforeTrigger = async (instance) => {
+  beforeTrigger = async () => {
     this.cancelPending();
 
     return new Promise((resolve) => {
