@@ -11,6 +11,8 @@ const triggers = {
   desktop: ["hover"],
 };
 
+const MILLISECONDS_PER_SECOND = 1000;
+
 let TABLE_AI_LAYOUT = "table-ai";
 import("discourse/plugins/discourse-ai/discourse/services/gists")
   .then((module) => {
@@ -30,7 +32,7 @@ export default class TopicListTooltip extends Component {
       this.hoverTimeout = discourseLater(() => {
         this.hoverTimeout = null;
         resolve();
-      }, settings.hover_delay_seconds * 1000);
+      }, settings.hover_delay_seconds * MILLISECONDS_PER_SECOND);
     });
   };
 
