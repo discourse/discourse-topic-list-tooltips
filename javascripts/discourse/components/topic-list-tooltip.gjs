@@ -1,6 +1,6 @@
 import Component from "@glimmer/component";
-import { cancel } from "@ember/runloop";
 import { getOwner } from "@ember/owner";
+import { cancel } from "@ember/runloop";
 import { htmlSafe } from "@ember/template";
 import replaceEmoji from "discourse/helpers/replace-emoji";
 import discourseLater from "discourse/lib/later";
@@ -22,6 +22,21 @@ import("discourse/plugins/discourse-ai/discourse/services/gists")
 
 export default class TopicListTooltip extends Component {
   hoverTimeout = null;
+
+  beforeTrigger = async (instance) => {
+    this.cancelPending();
+
+    return new Promise((resolve) => {
+      this.hoverTimeout = discourseLater(() => {
+        this.hoverTimeout = null;
+        resolve();
+      }, settings.hover_delay_seconds * 1000);
+    });
+  };
+
+  onClose = () => {
+    this.cancelPending();
+  };
 
   get gistsService() {
     try {
@@ -75,21 +90,6 @@ export default class TopicListTooltip extends Component {
       this.hoverTimeout = null;
     }
   }
-
-  beforeTrigger = async (instance) => {
-    this.cancelPending();
-
-    return new Promise((resolve) => {
-      this.hoverTimeout = discourseLater(() => {
-        this.hoverTimeout = null;
-        resolve();
-      }, settings.hover_delay_seconds * 1000);
-    });
-  };
-
-  onClose = () => {
-    this.cancelPending();
-  };
 
   <template>
     {{#if this.shouldShowTooltip}}
