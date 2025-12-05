@@ -4,3 +4,10 @@ tooltip_content:
   choices:
     - first_post_excerpt
     - ai_topic_gist
+
+hover_delay_seconds:
+  type: float
+  default: 0.25
+  min: 0
+  max: 2.0
+  description: "Delay in seconds before showing the tooltip on hover (helps prevent tooltips from appearing during scrolling)"
