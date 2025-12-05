@@ -1,4 +1,13 @@
+// large screens
 .topic-list-body .link-top-line {
+  .fk-d-tooltip__trigger,
+  .fk-d-tooltip__trigger-container {
+    display: inline;
+  }
+}
+
+// small screens
+.topic-list-data .main-link {
   .fk-d-tooltip__trigger,
   .fk-d-tooltip__trigger-container {
     display: inline;
