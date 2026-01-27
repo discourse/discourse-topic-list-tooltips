@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "Topic List Tooltips", type: :system do
+RSpec.describe "Topic List Tooltips" do
   let!(:theme) { upload_theme_component }
 
   fab!(:topic_with_excerpt) do
@@ -16,7 +16,7 @@ RSpec.describe "Topic List Tooltips", type: :system do
     topic.update!(excerpt: nil)
     topic
   end
-  
+
   fab!(:user)
 
   before do
@@ -33,9 +33,13 @@ RSpec.describe "Topic List Tooltips", type: :system do
       visit("/latest")
 
       # Wait for the tooltip trigger to be present (component loaded)
-      expect(page).to have_css(".topic-list-item[data-topic-id='#{topic_with_excerpt.id}'] .fk-d-tooltip__trigger", wait: 5)
+      expect(page).to have_css(
+        ".topic-list-item[data-topic-id='#{topic_with_excerpt.id}'] .fk-d-tooltip__trigger",
+        wait: 5,
+      )
 
-      link = find(".topic-list-item[data-topic-id='#{topic_with_excerpt.id}'] .fk-d-tooltip__trigger")
+      link =
+        find(".topic-list-item[data-topic-id='#{topic_with_excerpt.id}'] .fk-d-tooltip__trigger")
       link.hover
 
       expect(page).to have_css(".fk-d-tooltip__content", text: "This is a topic excerpt", wait: 5)
