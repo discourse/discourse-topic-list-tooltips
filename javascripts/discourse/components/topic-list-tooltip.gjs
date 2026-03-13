@@ -2,9 +2,9 @@ import Component from "@glimmer/component";
 import { getOwner } from "@ember/owner";
 import { cancel } from "@ember/runloop";
 import { htmlSafe } from "@ember/template";
+import DTooltip from "discourse/float-kit/components/d-tooltip";
 import replaceEmoji from "discourse/helpers/replace-emoji";
 import discourseLater from "discourse/lib/later";
-import DTooltip from "float-kit/components/d-tooltip";
 
 const triggers = {
   mobile: ["hover"],
